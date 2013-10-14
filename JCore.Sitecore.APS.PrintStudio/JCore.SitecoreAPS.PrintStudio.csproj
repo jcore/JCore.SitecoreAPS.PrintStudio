@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D9F07313-EE73-4C65-BC72-544B23F7CB8E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Weil.SC.PrintStudio</RootNamespace>
+    <AssemblyName>Weil.SC.PrintStudio</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Sitecore.Client, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Kernel">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Logging">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.PrintStudio.Configuration">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.PrintStudio.DashBoardClient">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.DashBoardClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.PrintStudio.InDesign.Soap">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.InDesign.Soap.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.PrintStudio.InDesignConnectorService">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.InDesignConnectorService.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.PrintStudio.Models">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.PrintStudio.PublishingEngine">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.PublishingEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.PrintStudio.WebClient">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.WebClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.PrintStudio.WebServices">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.PrintStudio.XmlViewer">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.XmlViewer.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Publishing.WebDeploy">
+      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.Publishing.WebDeploy.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\RenderingHelper.cs" />
+    <Compile Include="Managers\PrintManager.cs" />
+    <Compile Include="PatternBuilderExtension.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\Common\XmlContentRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlDroplinkRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlDynamicContentRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlDynamicQRCodeImage.cs" />
+    <Compile Include="Rendering\Common\XmlFlowTextFrame.cs" />
+    <Compile Include="Rendering\Common\XmlImageRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlParagraphStyleRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlRepeater.cs" />
+    <Compile Include="Rendering\Common\XmlVariableRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlVariablesFolderRenderer.cs" />
+    <Compile Include="Rendering\PitchBook\XmlIndexRenderer.cs" />
+    <Compile Include="Rendering\PitchBook\XmlTableOfContentIndexRenderer.cs" />
+    <Compile Include="Rendering\PitchBook\XmlBookIndexRenderer.cs" />
+    <Compile Include="Rendering\PitchBook\XmlBookTitleRenderer.cs" />
+    <Compile Include="Rendering\PitchBook\XmlItemRepeater.cs" />
+    <Compile Include="Rendering\PitchBook\XmlSectionTitleRenderer.cs" />
+    <Compile Include="Rules\Actions\DynamicParameterValueRule.cs" />
+    <Compile Include="Rules\Actions\WorkflowAutoPrintInDesign.cs" />
+    <Compile Include="Helpers\SitecoreHelper.cs" />
+    <Compile Include="Shell\Applications\ContentManager\Dialogs\PitchBookBuilder\ApplicationContext.cs" />
+    <Compile Include="Shell\Applications\ContentManager\Dialogs\PitchBookBuilder\BookBuilder.cs" />
+    <Compile Include="Shell\Applications\ContentManager\Dialogs\PitchBookBuilder\BookBuilderAsyncHelper.cs" />
+    <Compile Include="Shell\Applications\ContentManager\Dialogs\PitchBookBuilder\BookBuilderConstants.cs" />
+    <Compile Include="Shell\Applications\ContentManager\Dialogs\PitchBookBuilder\PitchBookBuilderDialog.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
