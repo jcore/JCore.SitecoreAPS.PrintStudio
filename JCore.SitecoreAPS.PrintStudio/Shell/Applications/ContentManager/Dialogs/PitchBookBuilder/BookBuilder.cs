@@ -8,8 +8,8 @@ using Sitecore.Data;
 using Sitecore.Data.Items;
 using Sitecore.Diagnostics;
 using Sitecore.IO;
-using Weil.SC.Common.Utils;
 using JCore.SitecoreAPS.PrintStudio.Managers;
+using JCore.SitecoreAPS.PrintStudio.Helpers;
 
 namespace JCore.SitecoreAPS.PrintStudio.Shell.Applications.ContentManager.Dialogs.PitchBookBuilder
 {

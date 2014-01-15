@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Sitecore.Analytics">
+      <HintPath>..\..\..\TFS\SiteCore\Weil.com\Branches\Weil.SC-APS\Binaries\Sitecore.Analytics.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.Client, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.Client.dll</HintPath>
@@ -74,6 +77,9 @@
     <Reference Include="Sitecore.Publishing.WebDeploy">
       <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.Publishing.WebDeploy.dll</HintPath>
     </Reference>
+    <Reference Include="Sitecore.SharedSource.DynamicWorkflow">
+      <HintPath>..\..\..\TFS\SiteCore\Weil.com\Branches\Weil.SC-APS\Binaries\Sitecore.SharedSource.DynamicWorkflow.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -84,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ItemHelper.cs" />
     <Compile Include="Helpers\RenderingHelper.cs" />
     <Compile Include="Managers\PrintManager.cs" />
     <Compile Include="PatternBuilderExtension.cs" />
