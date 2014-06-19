@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using Sitecore.PrintStudio.PublishingEngine;
 using Sitecore.PrintStudio.PublishingEngine.Rendering;
 
@@ -37,11 +38,47 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
                         paragraph.AddFirst(new XCData(data));
                     }
                 }
-                if (!string.IsNullOrEmpty(paragraph.Value) || this.RenderingItem["Publish when empty"] == "1")
+                if ((!string.IsNullOrEmpty(paragraph.Value) && ContainsAlphanumericCharacters(paragraph.Value)) || this.RenderingItem["Publish when empty"] == "1")
                 {
+                    paragraph = RemovedNestedParagraphStyles(paragraph);
                     output.Add(paragraph);
-                }                
+                }                            
             }
+        }
+
+        /// <summary>
+        /// Removes the nested paragraph styles.
+        /// </summary>
+        /// <param name="paragraph">The paragraph.</param>
+        /// <returns></returns>
+        private XElement RemovedNestedParagraphStyles(XElement paragraph)
+        {
+            if (paragraph.HasElements)
+            {
+                foreach (var par in paragraph.Elements())
+                {
+                    if (par.Name == "ParagraphStyle" && par.Parent.Name == par.Name)
+                    {
+                        return RemovedNestedParagraphStyles(par);
+                    }
+                }
+            }
+            return paragraph;
+        }
+
+        /// <summary>
+        /// Determines whether [contains orphan characters] [the specified value].
+        /// </summary>
+        /// <param name="val">The value.</param>
+        /// <returns></returns>
+        private bool ContainsAlphanumericCharacters(string val)
+        {
+            var reg = new Regex("[a-zA-Z0-9]");
+            if (reg.IsMatch(val))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

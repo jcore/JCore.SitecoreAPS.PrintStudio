@@ -105,7 +105,7 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
                 return contentField.Value;
             }
             
-            if (field is LookupField || field is ReferenceField)
+            if (field is LookupField || field is ReferenceField || field is MultilistField)
             {
                 Item innerItem = null;
                 if (field is LookupField)
@@ -115,6 +115,10 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
                 else if (field is ReferenceField)
                 {
                     innerItem = ((ReferenceField)field).TargetItem;
+                }
+                else if (field is MultilistField && ((MultilistField)field).GetItems() != null)
+                {
+                    innerItem = ((MultilistField)field).GetItems().FirstOrDefault();
                 }
 
                 if (innerItem != null)
@@ -126,6 +130,10 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
                         return base.ParseContent(printContext);
                     }
                     return innerItem.DisplayName;
+                }
+                else
+                {
+                    return string.Empty;
                 }
             }
             

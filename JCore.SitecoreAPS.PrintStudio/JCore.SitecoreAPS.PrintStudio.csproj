@@ -47,40 +47,31 @@
     <Reference Include="Sitecore.Logging">
       <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.PrintStudio.Configuration">
-      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.Configuration.dll</HintPath>
+    <Reference Include="Sitecore.PrintStudio.Configuration, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SVN\branches\dev-eDy\dep\SiteCore Assemblies\Sitecore.PrintStudio.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.PrintStudio.DashBoardClient">
-      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.DashBoardClient.dll</HintPath>
+    <Reference Include="Sitecore.PrintStudio.InDesign.Soap, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SVN\branches\dev-eDy\dep\SiteCore Assemblies\Sitecore.PrintStudio.InDesign.Soap.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.PrintStudio.InDesign.Soap">
-      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.InDesign.Soap.dll</HintPath>
+    <Reference Include="Sitecore.PrintStudio.Models, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SVN\branches\dev-eDy\dep\SiteCore Assemblies\Sitecore.PrintStudio.Models.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.PrintStudio.InDesignConnectorService">
-      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.InDesignConnectorService.dll</HintPath>
+    <Reference Include="Sitecore.PrintStudio.PublishingEngine, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SVN\branches\dev-eDy\dep\SiteCore Assemblies\Sitecore.PrintStudio.PublishingEngine.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.PrintStudio.Models">
-      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.Models.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.PrintStudio.PublishingEngine">
-      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.PublishingEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.PrintStudio.WebClient">
-      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.WebClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.PrintStudio.WebServices">
-      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.WebServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.PrintStudio.XmlViewer">
-      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.PrintStudio.XmlViewer.dll</HintPath>
-    </Reference>
-    <Reference Include="Sitecore.Publishing.WebDeploy">
-      <HintPath>..\..\..\siteroot\local7cms.weil.com\Website\bin\Sitecore.Publishing.WebDeploy.dll</HintPath>
+    <Reference Include="Sitecore.PrintStudio.WebServices, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SVN\branches\dev-eDy\dep\SiteCore Assemblies\Sitecore.PrintStudio.WebServices.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.SharedSource.DynamicWorkflow">
       <HintPath>..\..\..\TFS\SiteCore\Weil.com\Branches\Weil.SC-APS\Binaries\Sitecore.SharedSource.DynamicWorkflow.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -88,29 +79,56 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Weil.Core">
+      <HintPath>..\dep\Weil.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Weil.SC.Entities">
+      <HintPath>..\dep\Weil.SC.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Weil.SC.Util">
+      <HintPath>..\dep\Weil.SC.Util.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\DocumentRendering.cs" />
+    <Compile Include="Configuration\PrintStudioEngineSettings.cs" />
     <Compile Include="Helpers\ItemHelper.cs" />
     <Compile Include="Helpers\RenderingHelper.cs" />
     <Compile Include="Managers\PrintManager.cs" />
+    <Compile Include="Parsers\ContentParser.cs" />
+    <Compile Include="Parsers\HtmlCleanupParser.cs" />
     <Compile Include="PatternBuilderExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\Biography\XmlTitleRenderer.cs" />
+    <Compile Include="Rendering\Biography\XmlWidgetsRepeater.cs" />
+    <Compile Include="Rendering\Common\XmlAlternateTitleRendering.cs" />
+    <Compile Include="Rendering\Common\XmlBookRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlConditionalContentRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlConditionalRenderer.cs" />
     <Compile Include="Rendering\Common\XmlContentRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlDocumentRenderer.cs" />
     <Compile Include="Rendering\Common\XmlDroplinkRenderer.cs" />
     <Compile Include="Rendering\Common\XmlDynamicContentRenderer.cs" />
     <Compile Include="Rendering\Common\XmlDynamicQRCodeImage.cs" />
+    <Compile Include="Rendering\Common\XmlElementRenderer.cs" />
     <Compile Include="Rendering\Common\XmlFlowTextFrame.cs" />
     <Compile Include="Rendering\Common\XmlImageRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlInlineRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlPageRenderer.cs" />
     <Compile Include="Rendering\Common\XmlParagraphStyleRenderer.cs" />
     <Compile Include="Rendering\Common\XmlRepeater.cs" />
+    <Compile Include="Rendering\Common\XmlTableElementRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlTextFrameInSequence.cs" />
     <Compile Include="Rendering\Common\XmlVariableRenderer.cs" />
     <Compile Include="Rendering\Common\XmlVariablesFolderRenderer.cs" />
+    <Compile Include="Rendering\Common\XmlWidgetTitleRenderer.cs" />
     <Compile Include="Rendering\PitchBook\XmlIndexRenderer.cs" />
     <Compile Include="Rendering\PitchBook\XmlTableOfContentIndexRenderer.cs" />
     <Compile Include="Rendering\PitchBook\XmlBookIndexRenderer.cs" />
     <Compile Include="Rendering\PitchBook\XmlBookTitleRenderer.cs" />
     <Compile Include="Rendering\PitchBook\XmlItemRepeater.cs" />
     <Compile Include="Rendering\PitchBook\XmlSectionTitleRenderer.cs" />
+    <Compile Include="Rendering\XmlDocumentsFolderRenderer.cs" />
     <Compile Include="Rules\Actions\DynamicParameterValueRule.cs" />
     <Compile Include="Rules\Actions\WorkflowAutoPrintInDesign.cs" />
     <Compile Include="Helpers\SitecoreHelper.cs" />

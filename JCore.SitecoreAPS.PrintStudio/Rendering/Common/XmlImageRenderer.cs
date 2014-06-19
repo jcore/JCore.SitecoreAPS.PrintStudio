@@ -100,9 +100,35 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
         {
             Assert.ArgumentNotNullOrEmpty("parentWidth", parentWidth);
             var width = decimal.Parse(parentWidth);
-            var mediaWidth = Int32.Parse(mediaItem.InnerItem["Width"]);
-            var mediaHeight = Int32.Parse(mediaItem.InnerItem["Height"]);
-            return width * mediaHeight / mediaWidth;
+            if (mediaItem == null)
+            {
+                return width;
+            }
+            var strWidth = mediaItem.InnerItem["Width"];
+            var strHeight = mediaItem.InnerItem["Height"];
+            int mediaHeight = 0;
+            int mediaWidth = 0;
+                
+            if (!string.IsNullOrWhiteSpace(strWidth))
+            {
+                if (!int.TryParse(strWidth, out mediaWidth))
+                {
+                    mediaWidth = 0;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(strHeight))
+            {                
+                if (!int.TryParse(strHeight, out mediaHeight))
+                {
+                    mediaHeight = 0;
+                }
+            }
+            if (mediaWidth > 0)
+            {
+                return width * mediaHeight / mediaWidth;
+            }
+            return width;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Sitecore;
 using Sitecore.PrintStudio.PublishingEngine;
@@ -36,6 +37,14 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
         public string ChildDataKeyName { get; set; }
 
         /// <summary>
+        /// Gets or sets the column.
+        /// </summary>
+        /// <value>
+        /// The column.
+        /// </value>
+        public string Column { get; set; }
+
+        /// <summary>
         /// Preliminary render action invoked before RenderContent <see cref="RenderContent"/>.
         /// </summary>
         /// <param name="printContext">The print context.</param>
@@ -58,6 +67,10 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
                     if (items.Count() > 1)
                     {
                         this.DataSources = data;
+                        if (string.IsNullOrEmpty(this.Count))
+                        {
+                            this.Count = items != null ? items.Count().ToString() : "0";
+                        }
                         return;
                     }
 
@@ -65,7 +78,7 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
                     if (contextItem != null)
                     {
                         this.DataSource = contextItem.ID.ToString();
-                    }
+                    }                    
                 }
             }
 
@@ -84,6 +97,10 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
                         {
                             // Assign item collection to datasources 
                             this.DataSources = string.Join("|", items.Select(t => t.ID.ToString()).ToArray());
+                            if (string.IsNullOrEmpty(this.Count))
+                            {
+                                this.Count = items != null ? items.Count().ToString() : "0";
+                            }
                         }
                     }
                 }
@@ -91,12 +108,57 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
                 {
                     // If Item Field is not empty, check if its a multilist field.                    
                     var datasources = dataItem[this.RenderingItem["Item Field"]];
-                    var datasourceArray = datasources != null ?  datasources.Split('|') : null;
+                    var datasourceArray = datasources != null ? datasources.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries) : null;
 
                     // Get the number of times we need to repeat the child elements
-                    this.Count = datasourceArray != null ? datasourceArray.Count().ToString() : "0";
-                    this.DataSources = datasources;
+                    if (string.IsNullOrEmpty(this.Count))
+                    {
+                        this.Count = datasourceArray != null ? datasourceArray.Count().ToString() : "0";
+                    }
+                    if (!string.IsNullOrEmpty(this.Column))
+                    {
+                        this.DataSources = GetColumnItems(datasourceArray, this.Column);
+                    }
+                    else
+                    {
+                        this.DataSources = datasources;
+                    }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets the left items.
+        /// </summary>
+        /// <param name="datasources">The datasources.</param>
+        /// <param name="column">The column.</param>
+        /// <returns></returns>
+        private string GetColumnItems(string[] datasources, string column)
+        {
+            var leftArray = new List<string>();
+            var rightArray = new List<string>();
+            for (var i = 0; i < datasources.Length; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    leftArray.Add(datasources[i]);
+                }
+                else
+                {
+                    rightArray.Add(datasources[i]);
+                }
+            }
+            if (column == "Left")
+            {
+                return string.Join("|", leftArray);
+            }
+            else if (column == "Right")
+            {
+                return string.Join("|", rightArray);
+            }
+            else
+            {
+                return string.Join("|", datasources);
             }
         }
 
@@ -111,32 +173,40 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
             {
                 printContext.Settings.Parameters[this.ChildDataKeyName] = this.DataSource;
             }
-
-            if (!string.IsNullOrEmpty(this.DataSources))
-            {
-                foreach (var dataSource in this.DataSources.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    this.DataSource = dataSource;
-                    if (!string.IsNullOrEmpty(this.ChildDataKeyName))
-                    {
-                        printContext.Settings.Parameters[this.ChildDataKeyName] = dataSource;
-                    }
-
-                    RenderChildren(printContext, output);
-                }
-
-                return;
-            }
-
-            var dataItem = this.GetDataItem(printContext);
-            if (dataItem == null && !printContext.Settings.IsClient)
-            {
-                return;
-            }
-
             int count;
             if (!string.IsNullOrEmpty(this.Count) && int.TryParse(this.Count, out count) && count > 0)
             {
+                if (!string.IsNullOrEmpty(this.DataSources))
+                {
+                    var dataSources = this.DataSources.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (count > dataSources.Length)
+                    {
+                        count = dataSources.Length;
+                    }
+                    foreach (var dataSource in dataSources.Take(count))
+                    {
+                        this.DataSource = dataSource;
+                        if (!string.IsNullOrEmpty(this.ChildDataKeyName))
+                        {
+                            printContext.Settings.Parameters[this.ChildDataKeyName] = dataSource;
+                        }
+
+                        RenderChildren(printContext, output);
+                    }
+
+                    return;
+                }
+                else
+                {
+                    count = 0;
+                }
+
+                var dataItem = this.GetDataItem(printContext);
+                if (dataItem == null && !printContext.Settings.IsClient)
+                {
+                    return;
+                }
+
                 for (int i = 0; i < count; i++)
                 {
                     // Render child elements
@@ -145,8 +215,6 @@ namespace JCore.SitecoreAPS.PrintStudio.Rendering.Common
 
                 return;
             }
-
-            this.RenderChildren(printContext, output);
         }
     }
 }

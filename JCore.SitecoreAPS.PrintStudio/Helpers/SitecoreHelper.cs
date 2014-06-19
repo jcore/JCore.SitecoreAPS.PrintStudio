@@ -2,13 +2,13 @@
 using System.IO;
 using System.Linq;
 using System.Xml;
-using log4net.spi;
 using Sitecore.Data;
 using Sitecore.Data.Fields;
 using Sitecore.Data.Items;
 using Sitecore.PrintStudio.Configuration;
 using Sitecore.PrintStudio.PublishingEngine;
 using Sitecore.PrintStudio.PublishingEngine.Helpers;
+using Weil.Core.ErrorLogging;
 
 namespace JCore.SitecoreAPS.PrintStudio.Helpers
 {
@@ -90,9 +90,9 @@ namespace JCore.SitecoreAPS.PrintStudio.Helpers
                 {
                     str2 = RenderItemHelper.ReplaceSpecialCharacters(field.Value);
                 }
-                catch
+                catch (Exception ex)
                 {
-                    Logger.LogMessage("FetchFieldValue ERROR while trying to replace special characters", Level.ERROR);
+                    LogManager<ILogProvider>.Error("FetchFieldValue ERROR while trying to replace special characters ", ex, typeof(SitecoreHelper));
                 }
                 XmlNode xmlNode = (XmlNode)((XmlDocument)new XmlDocument()).CreateElement("temp");
                 xmlNode.InnerXml = str2;
@@ -158,7 +158,7 @@ namespace JCore.SitecoreAPS.PrintStudio.Helpers
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogMessage("FetchFieldValue", ex, Level.ERROR);
+                    LogManager<ILogProvider>.Error("FetchFieldValue", ex, typeof(SitecoreHelper));
                 }
             }
             return str1;

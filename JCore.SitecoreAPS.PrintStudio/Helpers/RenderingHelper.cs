@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Sitecore;
 using Sitecore.Data;
 using Sitecore.Data.Items;
@@ -72,6 +73,16 @@ namespace JCore.SitecoreAPS.PrintStudio.Helpers
         internal static void ReplaceVariables(ref string input, IDictionary<string, string> variables)
         {
             input = variables.Aggregate(input, (current, variable) => current.Replace(variable.Key, variable.Value));
+        }
+
+        /// <summary>
+        /// Inners the XML.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns></returns>
+        public static string InnerText(this XElement elem)
+        {
+            return elem.Elements().Aggregate(string.Empty, (element, node) => element += node.Value.ToString());
         }
     }
 }
